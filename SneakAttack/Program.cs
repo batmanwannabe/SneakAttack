@@ -1,5 +1,6 @@
 ﻿using SneakAttack.Enums;
 using SneakAttack.Models;
+using SneakAttack.Utils;
 using System;
 
 internal class Program
@@ -15,20 +16,35 @@ internal class Program
 
         Random rnd = new Random();
 
-        for (var i = 0; i < n; i++)
+        for (var i = 1; i <= n; i++)
         {
             Roles randomRole = RandomRole(killerCreated, rnd);
             if(randomRole == Roles.Killer)  killerCreated = true;
 
             var role = new Role(randomRole);
-            var player = new Player(role);
+            var player = new Player(role, "P"+i.ToString());
 
             playerList.Add(player);
 
-            Console.WriteLine(player.PlayerRole.RoleName.ToString());
+            Logger.PlayerLog(player);
         }
 
+        PlayRounds(playerList);
 
+
+    }
+
+    private static void PlayRounds(List<Player> players)
+    {
+        int rounds = players.Count - 1;
+        var killer = players.Where(x => x.PlayerRole.RoleName == Roles.Killer).FirstOrDefault();
+        var playersAfterKill = players;
+
+        for (int i = 1; i < rounds + 1; i++)
+        {
+            var round = new Round(i, playersAfterKill.Where(x => x.PlayerRole.RoleName != Roles.Killer), killer);
+            playersAfterKill = round.PlayRound();
+        }
     }
 
     private static Roles RandomRole(bool isKillerCreated, Random random)

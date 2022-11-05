@@ -8,11 +8,13 @@ namespace SneakAttack.Models
 {
     public class Player
     {
-        public Player(Role playerRole)
+        public Player(Role playerRole, string playername)
         {
             PlayerRole = playerRole;
+            Playername = playername;
         }
 
+        public string Playername { get; set; }
         public Role PlayerRole { get; set; }
     }
 }

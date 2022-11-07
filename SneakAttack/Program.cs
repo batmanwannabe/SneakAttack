@@ -21,8 +21,7 @@ internal class Program
             Roles randomRole = RandomRole(killerCreated, rnd);
             if(randomRole == Roles.Killer)  killerCreated = true;
 
-            var role = new Role(randomRole);
-            var player = new Player(role, "P"+i.ToString());
+            var player = new Player(randomRole, "P"+i.ToString());
 
             playerList.Add(player);
 
@@ -30,19 +29,17 @@ internal class Program
         }
 
         PlayRounds(playerList);
-
-
     }
 
     private static void PlayRounds(List<Player> players)
     {
         int rounds = players.Count - 1;
-        var killer = players.Where(x => x.PlayerRole.RoleName == Roles.Killer).FirstOrDefault();
+        var killer = players.Where(x => x.PlayerRole == Roles.Killer).FirstOrDefault();
         var playersAfterKill = players;
 
         for (int i = 1; i < rounds + 1; i++)
         {
-            var round = new Round(i, playersAfterKill.Where(x => x.PlayerRole.RoleName != Roles.Killer), killer);
+            var round = new Round(i, playersAfterKill.Where(x => x.PlayerRole != Roles.Killer), killer);
             playersAfterKill = round.PlayRound();
         }
     }

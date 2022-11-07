@@ -11,7 +11,7 @@ namespace SneakAttack.Utils
     {
         public static void PlayerLog(Player player)
         {
-            Console.WriteLine(player.Playername.ToString()+ " " + player.PlayerRole.RoleName.ToString());
+            Console.WriteLine(player.Playername.ToString()+ " " + player.PlayerRole.ToString());
         }
 
         public static void KillLog(int roundId, string killerName, string playerName)

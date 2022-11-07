@@ -17,13 +17,19 @@ namespace SneakAttack.Models
 
         public List<Player> PlayRound()
         {
+            List<Player> playersAfterKill = KillByKiller();
+
+            return playersAfterKill;
+        }
+
+        private List<Player> KillByKiller()
+        {
             var playerToKillIndex = Randoms.RandomPlayer(Players);
             var playerToKill = Players.ElementAt(playerToKillIndex);
 
             Logger.KillLog(RoundNumber, Killer.Playername, playerToKill.Playername);
 
-            var playersAfterKill = Players.Where(x=>x.Playername != playerToKill.Playername).ToList();
-
+            var playersAfterKill = Players.Where(x => x.Playername != playerToKill.Playername).ToList();
             return playersAfterKill;
         }
     }

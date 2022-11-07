@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SneakAttack.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,13 @@ namespace SneakAttack.Models
 {
     public class Player
     {
-        public Player(Role playerRole, string playername)
+        public Player(Roles playerRole, string playername)
         {
             PlayerRole = playerRole;
             Playername = playername;
         }
 
         public string Playername { get; set; }
-        public Role PlayerRole { get; set; }
+        public Roles PlayerRole { get; set; }
     }
 }
